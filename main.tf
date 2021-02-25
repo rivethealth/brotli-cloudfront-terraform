@@ -38,7 +38,7 @@ resource "aws_lambda_function" "edge" {
   handler          = "index.handler"
   publish          = true
   role             = "${aws_iam_role.edge.arn}"
-  runtime          = "nodejs12.x"
+  runtime          = "nodejs14.x"
   source_code_hash = "${data.archive_file.lambda.output_base64sha256}"
   timeout          = 10
 }
