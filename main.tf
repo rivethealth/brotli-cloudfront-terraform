@@ -28,7 +28,7 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "edge-lambda" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-  role       = "${aws_iam_role.edge.id}"
+  role       = aws_iam_role.edge.id
 }
 
 resource "aws_lambda_function" "edge" {
@@ -37,8 +37,8 @@ resource "aws_lambda_function" "edge" {
   function_name    = "${var.prefix}edge"
   handler          = "index.handler"
   publish          = true
-  role             = "${aws_iam_role.edge.arn}"
-  runtime          = "nodejs18.x"
-  source_code_hash = "${data.archive_file.lambda.output_base64sha256}"
+  role             = aws_iam_role.edge.arn
+  runtime          = "nodejs22.x"
+  source_code_hash = data.archive_file.lambda.output_base64sha256
   timeout          = 10
 }
